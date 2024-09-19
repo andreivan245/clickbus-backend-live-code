@@ -39,6 +39,10 @@ public class Place {
 
     private LocalDateTime updatedAt;
 
+    public Place(){
+
+    }
+
     public Place(String name, String slug, String city, String state) {
         this.name = name;
         this.slug = slug;
@@ -51,7 +55,63 @@ public class Place {
         return new Place(name, slug, city, state);
     }
 
+    public @NotNull String getName() {
+        return name;
+    }
+
     public PlaceDTO convertToDTO() {
         return PlaceDTO.of(this.name, this.slug, this.city, this.state);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
+
+    public @NotNull String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(@NotNull String slug) {
+        this.slug = slug;
+    }
+
+    public @NotNull String getCity() {
+        return city;
+    }
+
+    public void setCity(@NotNull String city) {
+        this.city = city;
+    }
+
+    public @NotNull String getState() {
+        return state;
+    }
+
+    public void setState(@NotNull String state) {
+        this.state = state;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

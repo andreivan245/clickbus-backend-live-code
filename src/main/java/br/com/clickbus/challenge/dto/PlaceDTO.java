@@ -35,11 +35,44 @@ public class PlaceDTO {
         return new PlaceDTO(name, slug, city, state);
     }
 
+
     public static Iterable<PlaceDTO> convertToList(List<Place> places) {
         return places.stream().map(Place::convertToDTO).collect(Collectors.toList());
     }
 
     public Place buildPlace() {
         return Place.of(this.name, this.slug, this.city, this.state);
+    }
+
+    public @NotNull String getName() {
+        return name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
+
+    public @NotNull String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(@NotNull String slug) {
+        this.slug = slug;
+    }
+
+    public @NotNull String getCity() {
+        return city;
+    }
+
+    public void setCity(@NotNull String city) {
+        this.city = city;
+    }
+
+    public @NotNull String getState() {
+        return state;
+    }
+
+    public void setState(@NotNull String state) {
+        this.state = state;
     }
 }
