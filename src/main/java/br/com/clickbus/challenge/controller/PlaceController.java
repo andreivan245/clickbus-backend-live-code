@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Api("places")
@@ -47,8 +48,14 @@ public class PlaceController {
         return new ResponseEntity(service.alter(place, placeDTO).convertToDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/?name={name}")
-    public ResponseEntity findByName(@PathVariable String name){
+    @GetMapping("/")
+    public ResponseEntity findByName(@RequestParam String name){
+
+        if(service.findByName(name).isEmpty()){
+            throw new PlaceNotFoundException(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(service.findByName(name).stream().map(Place::convertToDTO));
 
     }
 }

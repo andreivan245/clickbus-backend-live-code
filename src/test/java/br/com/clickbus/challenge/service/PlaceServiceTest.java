@@ -1,6 +1,5 @@
 package br.com.clickbus.challenge.service;
 
-
 import br.com.clickbus.challenge.dto.PlaceDTO;
 import br.com.clickbus.challenge.entity.Place;
 import br.com.clickbus.challenge.repository.PlaceRepository;
@@ -11,15 +10,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.atLeastOnce;
@@ -111,5 +109,24 @@ class PlaceServiceTest {
         assertEquals(place.getCity(), edited.getCity());
         assertEquals(place.getCreatedAt(), edited.getCreatedAt());
         assertNotNull(edited.getUpdatedAt());
+    }
+
+    @Test
+    void whenFindAllOk() {
+        when(repository.findAll()).thenReturn(Collections.singletonList(place));
+
+        List<Place> actual = service.findAll();
+
+        assertNotNull(actual);
+        assertEquals(1, actual.size());
+        verify(repository, atLeastOnce()).findAll();
+    }
+
+    @Test
+    void whenFindAllNotFound() {
+        when(repository.findAll()).thenReturn(null);
+
+        assertNull(service.findAll());
+        verify(repository, atLeastOnce()).findAll();
     }
 }

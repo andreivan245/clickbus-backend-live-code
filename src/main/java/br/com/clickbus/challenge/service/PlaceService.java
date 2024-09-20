@@ -6,13 +6,13 @@ import br.com.clickbus.challenge.entity.Place;
 import br.com.clickbus.challenge.repository.PlaceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.BeanUtils;
+
 
 @Service
 @AllArgsConstructor
@@ -34,11 +34,17 @@ public class PlaceService {
     }
 
     public List<Place> findByName(@NotNull String name) {
-       return findByName(name);
+       return repository.findByName(name);
     }
 
     public Place alter(@NotNull Place place,@NotNull PlaceDTO placeDTO) {
-            BeanUtils.copyProperties(placeDTO,place,"id");
+
+            place.setName(placeDTO.getName());
+            place.setSlug(placeDTO.getSlug());
+            place.setCity(place.getCity());
+            place.setState(placeDTO.getState());
+            place.setUpdatedAt(LocalDateTime.now());
+
             return repository.save(place);
     }
 }
